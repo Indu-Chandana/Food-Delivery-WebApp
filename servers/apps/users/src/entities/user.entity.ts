@@ -42,4 +42,7 @@ export class User {
 
     @Field()
     updatedAt: Date;
+
+    @Field({ nullable: true })
+    address: string;
 }
