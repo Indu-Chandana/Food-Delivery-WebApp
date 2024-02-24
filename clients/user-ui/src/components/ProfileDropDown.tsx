@@ -4,12 +4,17 @@
 // server side componets we cannot add any event, It's not possible
 // That's why this commponent as 'client side' component
 
+// when u make that file is 'client com' child components are also 'client com'
+
 import React, { useState } from 'react'
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { CgProfile } from 'react-icons/cg'
 
+import AuthScreen from "../screens/AuthScreen"
+
 const ProfileDropDown = () => {
     const [signIn, setSignIn] = useState(false)
+    const [open, setOpen] = useState(false)
 
     return (
         <div className=' flex items-center gap-4'>
@@ -33,9 +38,9 @@ const ProfileDropDown = () => {
                     </DropdownMenu>
                 </Dropdown>
             ) : (
-                <CgProfile className='text-2xl cursor-pointer' />
+                <CgProfile className='text-2xl cursor-pointer' onClick={() => setOpen(!open)} />
             )}
-
+            {open && <AuthScreen />}
         </div>
     )
 }
