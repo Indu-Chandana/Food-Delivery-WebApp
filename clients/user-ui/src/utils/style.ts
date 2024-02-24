@@ -1,3 +1,5 @@
+// 'use client'
+
 const styles = { // custom styles -> we can use it directly because of 'tailwind.config.ts' using all files inside the 'src' 
     logo: "text-[25px] font-Poppins font-[500]",
     title: "text-[25px] font-[500] font-Poppins text-center py-2",
