@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Login from "../shared/Auth/Login"
 import SignUp from "../shared/Auth/SignUp"
+import Verification from "../shared/Auth/Verificatin"
 
 const AuthScreen = () => {
     const [activeState, setActiveState] = useState("Login")
@@ -9,6 +10,7 @@ const AuthScreen = () => {
             <div className=" w-[500px] bg-slate-900  rounded shadow-sm p-3">
                 {activeState === "Login" && <Login setActiveState={setActiveState} />}
                 {activeState === "Signup" && <SignUp setActiveState={setActiveState} />}
+                {activeState === "Verification" && <Verification setActiveState={setActiveState} />}
             </div>
         </div>
     )
