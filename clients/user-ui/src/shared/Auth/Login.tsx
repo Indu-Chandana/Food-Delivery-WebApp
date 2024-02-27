@@ -52,6 +52,7 @@ const Login = ({ setActiveState, setOpen }: { setActiveState: (e: string) => voi
                 Cookies.set('access_token', response.data.Login.accessToken)
                 Cookies.set('refresh_token', response.data.Login.refreshToken)
                 setOpen(false)
+                window.location.reload();
             } else {
                 toast.error(response.data.Login.error.message)
             }
@@ -85,7 +86,9 @@ const Login = ({ setActiveState, setOpen }: { setActiveState: (e: string) => voi
                     ) : (<AiOutlineEye size={20} onClick={() => setShow(false)} className=' absolute bottom-3 right-2 z-1 cursor-pointer' />)}
                 </div>
                 <div className=' w-full mt-5'>
-                    <span className={`${styles.label} text-[#2190ff] block text-right cursor-pointer`}>Forgot your  password?</span>
+                    <span className={`${styles.label} text-[#2190ff] block text-right cursor-pointer`}
+                        onClick={() => setActiveState("Forgot-Password")}
+                    >Forgot your  password?</span>
                     <input type="submit" value="Login" disabled={isSubmitting || loading} className={`${styles.button} mt-3`} />
                 </div>
                 <br />
