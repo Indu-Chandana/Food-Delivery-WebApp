@@ -3,6 +3,9 @@ import styles from '@/src/utils/style'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import toast from 'react-hot-toast'
+import { useMutation } from '@apollo/client'
+import { FORGOTPASSWORD } from '@/src/graphql/actions/forgot-password.action'
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -11,6 +14,8 @@ const formSchema = z.object({
 type ForgotPasswordSchema = z.infer<typeof formSchema>
 
 const ForgotPassword = ({ setActiveState }: { setActiveState: (e: string) => void }) => {
+
+    const [ForgotPassword, { loading }] = useMutation(FORGOTPASSWORD);
 
     const {
         register,
@@ -22,9 +27,20 @@ const ForgotPassword = ({ setActiveState }: { setActiveState: (e: string) => voi
     })
 
     const onSubmit = async (data: ForgotPasswordSchema) => {
+        try {
+            const response = await ForgotPassword({
+                variables: {
+                    email: data.email
+                }
+            })
 
-        console.log(data)
-        reset()
+            console.log('resetPW res', response.data.forgotPassword.message)
+            toast.success("Please check your email to reset your password!")
+            reset()
+        } catch (error: any) {
+            console.log(error)
+            toast.error(error.message)
+        }
     }
 
     return (
@@ -38,7 +54,7 @@ const ForgotPassword = ({ setActiveState }: { setActiveState: (e: string) => voi
                 )}
                 <br />
                 <br />
-                <input type="submit" value="Submit" disabled={isSubmitting} className={`${styles.button} mt-3`} />
+                <input type="submit" value="Submit" disabled={isSubmitting || loading} className={`${styles.button} mt-3`} />
                 <br />
                 <h5 className=' text-center pt-4 font-Poppins text-[14px]'>Or Go Back to <span className='text-[#2190ff] pl-1 cursor-pointer' onClick={() => setActiveState("Login")}>Login</span></h5>
                 <br />
