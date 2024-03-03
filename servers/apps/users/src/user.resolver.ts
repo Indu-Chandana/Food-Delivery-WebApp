@@ -53,7 +53,7 @@ export class UsersResolver {
         return await this.userService.getLoggedInUser(context.req)
     }
 
-    @Query(() => ForgotPasswordResponse)
+    @Mutation(() => ForgotPasswordResponse) // we change this into mutation because we need to send few things in here.
     // @UseGuards(AuthGuard)
     async forgotPassword(
         @Args('forgotPasswordDto') forgotPasswordDto: ForgotPasswordDto,
@@ -62,7 +62,7 @@ export class UsersResolver {
         return await this.userService.forgotPassword(forgotPasswordDto)
     }
 
-    @Query(() => ResetPasswordResponse)
+    @Mutation(() => ResetPasswordResponse) // we change this into mutation because we need to send few things in here.
     async resetPassword(
         @Args('resetPasswordDto') resetPasswordDto: ResetPasswordDto,
     ): Promise<ResetPasswordResponse> {

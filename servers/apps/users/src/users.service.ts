@@ -151,7 +151,7 @@ export class UsersService {
 
     const decoded = await this.jwtService.decode(activationToken);
 
-    if (!decoded) {
+    if (!decoded || decoded?.exp * 1000 < Date.now()) { // (* 1000) Date.now() return value is millisecond value, thats why I need to multiply by 1000
       throw new BadRequestException('Invalid token!');
     }
 
